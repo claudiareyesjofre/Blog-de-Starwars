@@ -1,52 +1,61 @@
 import React, { useContext } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import CharCard from "../component/CharCard";
-import PlanetCard from "../component/planetCard";
-import ShipCard from "../component/shipCard";
+
 import { Context } from "../store/appContext";
+import sw1 from "../../img/sw1.png"
+import sw2 from "../../img/sw2.png"
+import sw3 from "../../img/sw3.png"
+import cielo from "../../img/cielo.png"
+
+import { NewCard } from "../component/newcard";
+/* import { Characters } from "../component/Characters";
+import { Planets } from "../component/Planets";
+import { Species } from "../component/Species";
+import { Starships } from "../component/Startships";
+import { Vehicles } from "../component/Vehicles"; */
 
 
 export const Home = () => {
+
 	const { store } = useContext(Context);
 
 	return (
-		<div className="container">
-			<div className="row">
-				<div className="col">
-					<h2 className="heading">Characters</h2>
-				</div>
-			</div>
-			<div className="row">
-				<div className="d-flex justify-content-between overFlow">
-					{store.people
-						? store.people.map((elem, index) => <CharCard key={index} id={++index} character={elem} />)
-						: ""}
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<h2 className="heading">Planets</h2>
-				</div>
-			</div>
-			<div className="row">
-				<div className="d-flex justify-content-between overFlow">
-					{store.planets
-						? store.planets.map((elem, index) => <PlanetCard key={index} id={++index} planet={elem} />)
-						: ""}
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<h2 className="heading">Start Ships</h2>
-				</div>
-			</div>
-			<div className="row">
-				<div className="d-flex justify-content-between overFlow">
-					{store.starShips
-						? store.starShips.map((elem, index) => <ShipCard key={index} id={++index} ship={elem} />)
-						: ""}
-				</div>
-			</div>
+		 <div className="container">
+     <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+  <div className="carousel-inner">
+    <div className="carousel-item active">
+      <img src={sw1} className="d-block w-100 " alt="..."/>
+    </div>
+    <div className="carousel-item">
+      <img src={sw2} className="d-block w-100" alt="..."/>
+    </div>
+    <div className="carousel-item">
+      <img src={sw3} className="d-block w-100 " alt="..."/>
+    </div>
+  </div>	
 		</div>
+  <div className="container"> 
+  <div className="row">
+   <NewCard	
+   	titulo=" Personajes" 
+	button=" conoce los personajes"
+	ruta= "/character"/>
+    </div> 
+	<div className="diseño starwars">
+		<img   className ="cielo" src={cielo} alt="cielo"/>
+	</div>
+	
+	<div className="row">
+   <NewCard
+   titulo="Planetas"
+   button=" conoce los planetas"
+   ruta= "/planet"
+   />
+    </div> 
+      </div>
+ 
+      </div>
+   
+   
+			 
 	);
 };

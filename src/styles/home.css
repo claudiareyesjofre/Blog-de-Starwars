@@ -1,39 +1,125 @@
-img{
-    margin-left: 30px;
+
+/* navbar */
+img.logo{
+    width: 100px;
+    margin-left: 50px;
 }
 
-div.dropdown{
-    margin-right: 50px;
-    width: 50px;
-    display: flex;
+#myNav{
+    background-color: rgba(4, 4, 4, 0.686) !important;
+    height: 5rem!important;
+    padding: .5rem !important;
 }
 
-div.drp{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    align-items: center;
+button#dropdownMenuButton.dropdown-toggle.pl-5.pr-5{
+    background: transparent;
+    border: transparent;
 }
 
-div.drp{
-    margin-left: 5px;
-}
 svg{
-    font-size: 30px;
+    color: rgb(255, 204, 0);
+    font-size: 30px; 
 }
 
-.jumbo {
-    background-color: white !important;
+button#dropdownMenuButton.dropdown-toggle.pl-5.pr-5::after{
+    color: rgb(255, 204, 0);
 }
 
-.text {
-    margin-left: 10px;
+
+
+.myDropdown{
+    margin-right: 7rem;
 }
 
-.hr {
-    border-color: red;
+.myFavourites{
+   background-color: rgba(99, 97, 97, 0.651) !important;
+   width: 15.5rem!important;
+  
 }
 
-.info {
+
+ul, li{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#myLiList:hover, #myLiList::selection{
+    background-color: rgba(3, 3, 3, 0.651) !important;
+}
+
+.fa-trash-alt{
+    cursor: pointer;
+}
+
+.fa-trash-alt:hover, .fa-trash-alt::selection{
     color: red;
 }
+
+
+/* footer */
+
+footer{
+    background-color: rgba(4, 4, 4, 0.686);
+    width: auto;
+    height: 100px;
+
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    text-decoration: none;
+    color: #ffc107
+}
+
+div.text-center{
+    background: rgb(158, 135, 91);
+    color:#fff;
+    height: 40px;
+}
+
+/* home */
+
+/* header */
+
+img.d-block{
+    margin-top: 30px;
+    height: 500px;
+}
+
+hr:not{
+    background: rgba(0, 0, 0, 0.992);
+    
+}
+/* final header */
+
+/* diseño starwars */
+
+div.diseño.starwars{
+    height: 50px;
+    margin-top: 30px;
+    background: rgb(158, 135, 91);
+}
+
+img.cielo{
+    width: 1300px;
+}
+
+/* final diseño starwars */
+
+/* card diseño planeta y personajes */
+
+div.card{
+    width: 18rem;
+    margin-top: 40px;
+    margin-right: 20px;
+}
+
+button.favorito{
+background: transparent;
+border: transparent;
+}
+/*  final card diseño planeta y personajes */

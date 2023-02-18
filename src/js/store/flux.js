@@ -1,113 +1,214 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			people: [], // all characters info
-			character: [], // 1 character info
-			planets: [], // all planets info
-			planet: [], // 1 planet info
-			starShips: [], // all star ship info
-			starShip: [], // 1 star ship info
-			favorites: []
+			dataPeople: [],
+			dataPlanets: [],
+			dataSpecies: [],
+			dataStarships: [],
+			dataVehicles: [],
+			detailsPeople: {},
+			detailsPanet: {},
+			detailsSpecie: {},
+			detailsStarship: {},
+			detailsVehicle: {},
+			favourites: []
 		},
 		actions: {
-			// Use getActions to call a function within a function
+			getDataPeople: async () => {
+				try {
+					let response = await fetch("https://www.swapi.tech/api/people");
 
-			addItem: item => {
-				const store = getStore();
-				setStore({ favorites: [...store.favorites, { item }] });
+					const data = await response.json();
+
+					//Para poder meter el item como favorito
+
+					let formattedCharacters = data.results.map(item => {
+						return { ...item, favorite: false };
+					});
+
+					setStore({ dataPeople: formattedCharacters });
+				} catch (e) {
+					console.error(`error from database -- ${e}`);
+				}
 			},
 
-			removeItem: id => {
-				let value = document.getElementById(id).title;
-				const store = getStore();
-				setStore({ favorites: store.favorites.filter(fav => fav.item !== value) });
+			getDataPlanets: async () => {
+				try {
+					let response = await fetch("https://www.swapi.tech/api/planets");
+
+					const data = await response.json();
+
+					let formattedPlanets = data.results.map(item => {
+						return { ...item, favorite: false };
+					});
+
+					setStore({ dataPlanets: formattedPlanets });
+				} catch (e) {
+					console.error(`error from database -- ${e}`);
+				}
 			},
 
-			getPeopleData: async () => {
-				const settings = {
-					method: "GET",
-					headers: { "Content-Type": "application/json" }
-				};
+			getDataSpecies: async () => {
+				try {
+					let response = await fetch("https://www.swapi.tech/api/species");
 
-				const request = await fetch(`https://www.swapi.tech/api/people`, settings);
-				const json = await request.json();
-				const data = json;
-				setStore({ people: data.results });
+					const data = await response.json();
+
+					let formattedSpecies = data.results.map(item => {
+						return { ...item, favorite: false };
+					});
+
+					setStore({ dataSpecies: formattedSpecies });
+				} catch (error) {
+					console.error(`error from database -- ${error}`);
+				}
 			},
 
-			getCharacterDescription: async url => {
-				const store = getStore();
-				const settings = {
-					method: "GET",
-					headers: { "Content-Type": "application/json" }
-				};
+			getDataStarships: async () => {
+				try {
+					let response = await fetch("https://www.swapi.tech/api/starships");
 
-				const request = await fetch(url, settings);
-				const json = await request.json();
-				const data = json;
-				setStore({ character: [...store.character, data.result.properties] });
+					const data = await response.json();
+
+					let formattedStarships = data.results.map(item => {
+						return { ...item, favorite: false };
+					});
+
+					setStore({ dataStarships: formattedStarships });
+				} catch (error) {
+					console.error(`error from database -- ${error}`);
+				}
 			},
 
-			charDescription: url => {
-				getActions().getCharacterDescription(url);
+			getDataVehicles: async () => {
+				try {
+					let response = await fetch("https://www.swapi.tech/api/vehicles");
+
+					const data = await response.json();
+
+					let formattedVehicles = data.results.map(item => {
+						return { ...item, favorite: false };
+					});
+
+					setStore({ dataVehicles: formattedVehicles });
+				} catch (error) {
+					console.error(`error from database -- ${error}`);
+				}
 			},
 
-			getPlanetsData: async () => {
-				const settings = {
-					method: "GET",
-					headers: { "Content-Type": "application/json" }
-				};
+			getDetailsPeople: async id => {
+				try {
+					let response = await fetch(`https://www.swapi.tech/api/people/${id}`);
 
-				const request = await fetch(`https://www.swapi.tech/api/planets`, settings);
-				const json = await request.json();
-				const data = json;
-				setStore({ planets: data.results });
+					const data = await response.json();
+
+					let data_DetailsPeople = data.result;
+
+					//Da un objecto
+					setStore({ detailsPeople: data_DetailsPeople });
+				} catch (e) {
+					console.error(`error from database -- ${e}`);
+				}
 			},
 
-			getPlanetDescription: async url => {
-				const store = getStore();
-				const settings = {
-					method: "GET",
-					headers: { "Content-Type": "application/json" }
-				};
+			getDetailsPlanet: async id => {
+				try {
+					let response = await fetch(`https://www.swapi.tech/api/planets/${id}`);
 
-				const request = await fetch(url, settings);
-				const json = await request.json();
-				const data = json;
-				setStore({ planet: [...store.planet, data.result.properties] });
+					const data = await response.json();
+
+					let data_DetailsPlanet = data.result;
+
+					//Da un objecto
+					setStore({ detailsPanet: data_DetailsPlanet });
+				} catch (e) {
+					console.error(`error from database -- ${e}`);
+				}
 			},
 
-			planetDescription: url => {
-				getActions().getPlanetDescription(url);
+			getDetailsSpecie: async id => {
+				try {
+					let response = await fetch(`https://www.swapi.tech/api/species/${id}`);
+
+					const data = await response.json();
+
+					let data_DetailsSpecie = data.result;
+
+					//Da un objecto
+					setStore({ detailsSpecie: data_DetailsSpecie });
+				} catch (e) {
+					console.error(`error from database -- ${e}`);
+				}
 			},
 
-			getStarShipsData: async () => {
-				const settings = {
-					method: "GET",
-					headers: { "Content-Type": "application/json" }
-				};
+			getDetailsStarship: async id => {
+				try {
+					let response = await fetch(`https://www.swapi.tech/api/starships/${id}`);
 
-				const request = await fetch(`https://www.swapi.tech/api/starships`, settings);
-				const json = await request.json();
-				const data = json;
-				setStore({ starShips: data.results });
+					const data = await response.json();
+
+					let data_DetailsStarship = data.result;
+
+					//Da un objecto
+					setStore({ detailsStarship: data_DetailsStarship });
+				} catch (e) {
+					console.error(`error from database -- ${e}`);
+				}
 			},
 
-			getStarShipDescription: async url => {
-				const store = getStore();
-				const settings = {
-					method: "GET",
-					headers: { "Content-Type": "application/json" }
-				};
+			getDetailsVehicle: async id => {
+				try {
+					let response = await fetch(`https://www.swapi.tech/api/vehicles/${id}`);
 
-				const request = await fetch(url, settings);
-				const json = await request.json();
-				const data = json;
-				setStore({ starShip: [...store.starShip, data.result.properties] });
+					const data = await response.json();
+
+					let data_DetailsVehicle = data.result;
+
+					//Da un objecto
+					setStore({ detailsVehicle: data_DetailsVehicle });
+				} catch (e) {
+					console.error(`error from database -- ${e}`);
+				}
 			},
 
-			starShipDescription: url => {
-				getActions().getStarShipDescription(url);
+			//Para poder añadir a la lista de favoritos todas las categorías
+			//no es posible usar el id, pq el id se repite en distintas categorías
+
+			addFavourite: (dataArr, itemUrl, favouritesArr) => {
+				dataArr.map(item => {
+					if (favouritesArr && item.url === itemUrl) {
+						if (favouritesArr.length === 0) {
+							item.favorite = true;
+							setStore({ favourites: [...favouritesArr, item] });
+						} else {
+							//NO REPETIR ELEMENTO EN FAVORITOS
+							if (!favouritesArr.some(item => item.url === itemUrl)) {
+								item.favorite = true;
+								setStore({ favourites: [...favouritesArr, item] });
+							}
+						}
+					}
+				});
+			},
+
+			//Para poder recoger los datos guardados en el local storage al recargar la página
+			getFavourites: () => {
+				let initFavo = JSON.parse(localStorage.getItem("store.favourites"));
+				// Al iniciar la página "favourites" está vacío, por lo que al no encontrarlo
+				//lo transforma en null, para evitar eso es necesario este if
+				if (initFavo) {
+					setStore({ favourites: initFavo });
+				}
+			},
+
+			deleteFavourite: (itemUrl, favouritesArr) => {
+				favouritesArr.map((item, index) => {
+					if (item.url === itemUrl) {
+						item.favorite = false;
+						favouritesArr.splice(index, 1);
+						setStore({ favourites: [...favouritesArr] });
+					}
+				});
 			}
 		}
 	};
