@@ -1,9 +1,24 @@
-import React, { useContext } from "react";
 import Clone from "../../img/clone-white.png"
-
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export function Characters() {
+  const {store}=useContext(Context)
+  const { id } = useParams();
+  const [character, setCharacter] = useState({});
+  
+  useEffect(() => {
+    fetch("https://www.swapi.tech/api/people/" + id)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setCharacter(data.result);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <>
       <div className="container">
@@ -12,48 +27,31 @@ export function Characters() {
             <img src={Clone} />
           </div>
           <div className="col">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut
-              placerat ipsum, sed rutrum turpis. Cras sit amet sodales nunc.
-              Nulla nunc justo, sollicitudin eu cursus eget, rhoncus a tortor.
-              Mauris sapien dolor, sagittis non purus sed, laoreet ornare purus.
-              Fusce semper vulputate venenatis. Nunc hendrerit, erat quis
-              commodo tempor, nunc erat vulputate nulla, nec lobortis tortor
-              velit eu eros. Duis a odio efficitur, facilisis lectus vitae,
-              tempus metus. Integer molestie ullamcorper lectus ut maximus.
-              Integer sollicitudin nunc sit amet lobortis gravida. Pellentesque
-              rutrum risus orci, vel consectetur metus scelerisque non. Sed
-              tristique, leo egestas mattis pharetra, diam ante facilisis erat,
-              vehicula pharetra felis neque nec odio. Sed vehicula urna ac
-              tortor imperdiet, a fringilla sapien pellentesque. Quisque
-              fermentum sapien vitae placerat euismod. Pellentesque nibh leo,
-              consectetur aliquam laoreet a, ornare quis purus. Vestibulum
-              convallis dolor vitae vulputate mollis. Sed sit amet dui tempus,
-              finibus elit quis, venenatis dolor.
-            </p>
+           <h1>{character?.properties?.name}</h1>
+            <p>{character?.descripcion} </p>
           </div>
         </div>
         <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-	  <th scope="col">Handle</th>
-	  <th scope="col">Handle</th>
-	  <th scope="col">Handle</th>
+      <th scope="col">Height</th>
+      <th scope="col">Mass</th>
+      <th scope="col">Hair color</th>
+      <th scope="col">Skin color</th>
+	  <th scope="col">Eye color</th>
+	  <th scope="col">Birth year</th>
+	  <th scope="col">Gender</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-	  <td>Mark</td>
-	  <td>Mark</td>
-	  <td>Mark</td>
-	  <td>Mark</td>
-	  <td>Mark</td>
+      <th scope="row">{character?.properties?.height}</th>
+      <td>{character?.properties?.mass}</td>
+      <td>{character?.properties?.hair_color}</td>
+      <td>{character?.properties?.skin_color}</td>
+      <td>{character?.properties?.eye_color}</td>
+      <td>{character?.properties?.birth_year}</td>
+      <td>{character?.properties?.gender}</td>    
 	  </tr>
   </tbody>
 </table>

@@ -1,62 +1,59 @@
-import React, { useContext } from "react";
-import Clone from "../../img/clone-white.png"
-
-
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Planeta from "../../img/paleta.png"
 import { Context } from "../store/appContext";
 
 export function Planets() {
-	
+	const { id } = useParams();
+  const [planet, setPlanet] = useState({});
+
+  useEffect(() => {
+    fetch("https://www.swapi.tech/api/planets/" + id)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPlanet(data.result);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
 	return (
 		<>
 		<div className="container">
         <div className="row">
           <div className="col">
-            <img src={Clone} />
+            <img src={Planeta} />
           </div>
           <div className="col">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut
-              placerat ipsum, sed rutrum turpis. Cras sit amet sodales nunc.
-              Nulla nunc justo, sollicitudin eu cursus eget, rhoncus a tortor.
-              Mauris sapien dolor, sagittis non purus sed, laoreet ornare purus.
-              Fusce semper vulputate venenatis. Nunc hendrerit, erat quis
-              commodo tempor, nunc erat vulputate nulla, nec lobortis tortor
-              velit eu eros. Duis a odio efficitur, facilisis lectus vitae,
-              tempus metus. Integer molestie ullamcorper lectus ut maximus.
-              Integer sollicitudin nunc sit amet lobortis gravida. Pellentesque
-              rutrum risus orci, vel consectetur metus scelerisque non. Sed
-              tristique, leo egestas mattis pharetra, diam ante facilisis erat,
-              vehicula pharetra felis neque nec odio. Sed vehicula urna ac
-              tortor imperdiet, a fringilla sapien pellentesque. Quisque
-              fermentum sapien vitae placerat euismod. Pellentesque nibh leo,
-              consectetur aliquam laoreet a, ornare quis purus. Vestibulum
-              convallis dolor vitae vulputate mollis. Sed sit amet dui tempus,
-              finibus elit quis, venenatis dolor.
-            </p>
+          <h1>{planet?.properties?.name}</h1>
+            <p>{planet?.description}</p> 
+            
           </div>
         </div>
 		<table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-	  <th scope="col">Handle</th>
-	  <th scope="col">Handle</th>
-	  <th scope="col">Handle</th>
+      <th scope="col">Climate</th>
+      <th scope="col">Diameter</th>
+      <th scope="col">Rotation period</th>
+      <th scope="col">Orbitalperiod</th>
+	  <th scope="col">Gravity</th>
+	  <th scope="col">Population</th>
+	  <th scope="col">Terrain</th>
+    <th scope="col">Surface water</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-	  <td>Mark</td>
-	  <td>Mark</td>
-	  <td>Mark</td>
-	  <td>Mark</td>
-	  <td>Mark</td>
+      <th scope="row">{planet?.properties?.climate}</th>
+      <td>{planet?.properties?.diameter}</td>
+	  <td>{planet?.properties?.rotation_period}</td>
+	  <td>{planet?.properties?.orbital_period}</td>
+	  <td>{planet?.properties?.gravity}</td>
+	  <td>{planet?.properties?.population}</td>
+	  <td>{planet?.properties?.terrain}</td>
+    <td>{planet?.properties?.surface_water}</td>
+	  
 	  </tr>
   </tbody>
 </table>
