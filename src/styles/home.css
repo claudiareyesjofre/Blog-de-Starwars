@@ -11,9 +11,10 @@ img.logo{
     padding: .5rem !important;
 }
 
-button#dropdownMenuButton.dropdown-toggle.pl-5.pr-5{
+button.dropdown-toggle{
     background: transparent;
     border: transparent;
+    margin-right: 150px;
 }
 
 svg{
@@ -55,6 +56,7 @@ ul, li{
 .fa-trash-alt:hover, .fa-trash-alt::selection{
     color: red;
 }
+
 
 
 /* footer */

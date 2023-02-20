@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React,{useContext} from "react";
+import { Context } from "../store/appContext";
+import { Link, useActionData } from "react-router-dom";
 import { CiHeart } from "react-icons/ci";
 
 import "../../styles/home.css";
@@ -23,6 +24,7 @@ export const NewCard = (props) => {
 }
 
 export const Longcard = (props) => {
+  const {actions}=useContext(Context)
   return (
     <>
       <div className="card" >
@@ -37,7 +39,9 @@ export const Longcard = (props) => {
               </Link>
             </div>
             <div className="col">
-              <button className="favorito">
+              <button className="favorito" onClick={()=>{
+                actions.addFav(props.titulo)}
+              }>
                 <CiHeart />
               </button>
             </div>
